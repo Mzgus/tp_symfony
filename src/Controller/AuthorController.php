@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 class AuthorController extends AbstractController
 {
-    #[Route('/author', name: 'app_author', methods: ['GET'])]
+    #[Route('/author', name: 'author_list', methods: ['GET'])]
     /**
      * @Route("/authors", name="author_list")
      */
@@ -37,7 +37,7 @@ class AuthorController extends AbstractController
             $em->persist($author);
             $em->flush();
 
-            return $this->redirectToRoute('author_index');
+            return $this->redirectToRoute('author_list');
         }
 
         return $this->render('author/new.html.twig', [
@@ -45,7 +45,7 @@ class AuthorController extends AbstractController
         ]);
     }
 
-    #[Route('/author/{id}/edit', name: 'author_edit', methods: ['GET', 'POST'])]
+    #[Route('/author/{name}/edit', name: 'author_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Author $author, EntityManagerInterface $em): Response
     {
         ### Fonction qui permet d'edit un auteur
@@ -54,8 +54,7 @@ class AuthorController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-
-            return $this->redirectToRoute('author_index');
+            return $this->redirectToRoute('author_list');
         }
 
         return $this->render('author/edit.html.twig', [
@@ -64,16 +63,16 @@ class AuthorController extends AbstractController
         ]);
     }
 
-    #[Route('/author/{id}', name: 'author_delete', methods: ['POST'])]
+    #[Route('/author/{name}', name: 'author_delete', methods: ['POST'])]
     public function delete(Request $request, Author $author, EntityManagerInterface $em): Response
     {
         ### Fonction qui permet de supprimer un auteur
-        if ($this->isCsrfTokenValid('delete' . $author->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $author->getName(), $request->request->get('_token'))) {
             $em->remove($author);
             $em->flush();
         }
 
-        return $this->redirectToRoute('author_index');
+        return $this->redirectToRoute('author_list');
     }
 
 }

@@ -24,6 +24,9 @@ class Author
     #[ORM\OneToMany(targetEntity: Book::class, mappedBy: 'author')]
     private Collection $books;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nationality = null;
+
     public function __construct()
     {
         $this->books = new ArrayCollection();
@@ -72,6 +75,18 @@ class Author
                 $book->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(string $nationality): static
+    {
+        $this->nationality = $nationality;
 
         return $this;
     }
