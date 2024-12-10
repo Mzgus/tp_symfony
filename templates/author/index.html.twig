@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <h1>Authors</h1>
+<a href="{{ path('home') }}">Accueil</a>
 <a href="{{ path('author_new') }}">Add New Author</a>
 <ul>
     {% for author in authors %}

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/book')]
 final class BookController extends AbstractController
 {
-    #[Route(name: 'app_book_index', methods: ['GET'])]
+    #[Route(name: 'book_list', methods: ['GET'])]
     public function index(BookRepository $bookRepository): Response
     {
         return $this->render('book/index.html.twig', [
@@ -33,7 +33,7 @@ final class BookController extends AbstractController
             $entityManager->persist($book);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('book_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('book/new.html.twig', [
@@ -59,7 +59,7 @@ final class BookController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('book_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('book/edit.html.twig', [
@@ -71,11 +71,11 @@ final class BookController extends AbstractController
     #[Route('/{id}', name: 'app_book_delete', methods: ['POST'])]
     public function delete(Request $request, Book $book, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $book->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($book);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('book_list', [], Response::HTTP_SEE_OTHER);
     }
 }

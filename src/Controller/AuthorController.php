@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 class AuthorController extends AbstractController
 {
-    #[Route('/author', name: 'author_list', methods: ['GET'])]
+    #[Route('/author_list', name: 'author_list', methods: ['GET'])]
     /**
      * @Route("/authors", name="author_list")
      */

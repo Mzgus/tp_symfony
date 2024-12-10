@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<h1>Bienvenu dans la librairie web !</h1>
+
+{% if not app.user %}
+    <p>
+        <a href="{{ path('app_register') }}">S'enregistrer</a> or 
+        <a href="{{ path('app_login') }}">Se connecter</a> pour gerer les livres et auteurs.
+    </p>
+{% else %}
+    <p>Bienvenu, {{ app.user.username }}!</p>
+    <ul>
+        <li><a href="{{ path('book_list') }}">Gerer les livres</a></li>
+        <li><a href="{{ path('author_list') }}">Gerer les auteurs</a></li>
+        <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+    </ul>
+{% endif %}
+{% endblock %}

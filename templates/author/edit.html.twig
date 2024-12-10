@@ -6,4 +6,5 @@
 {{ form_widget(form) }}
 <button type="submit">{{ form.vars.value.id ? 'Update' : 'Create' }}</button>
 {{ form_end(form) }}
+<a href="{{ path('author_list') }}">Retour à la liste</a>
 {% endblock %}
