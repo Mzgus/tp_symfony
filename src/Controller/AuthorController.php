@@ -10,6 +10,8 @@ use App\Entity\Author;
 use App\Form\AuthorType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+
+// Création de la classe AuthorController
 class AuthorController extends AbstractController
 {
     #[Route('/author_list', name: 'author_list', methods: ['GET'])]
@@ -48,7 +50,7 @@ class AuthorController extends AbstractController
     #[Route('/author/{name}/edit', name: 'author_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Author $author, EntityManagerInterface $em): Response
     {
-        ### Fonction qui permet d'edit un auteur
+        ### Fonction qui permet d'editer un auteur
         $form = $this->createForm(AuthorType::class, $author);
 
         $form->handleRequest($request);
@@ -76,3 +78,4 @@ class AuthorController extends AbstractController
     }
 
 }
+
